@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mapa Escolar</title>
+    <meta name="viewport" content="initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <style>
+      #map { height: 100vh; width: 100%; }
+
+      .info-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        max-width: 300px;
+      }
+      .info-content img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+      .info-text {
+        flex: 1;
+      }
+      .info-text h3 {
+        margin: 0;
+        font-size: 15px;
+      }
+      .info-text p {
+        font-size: 13px;
+        margin: 4px 0;
+      }
+      .info-text a {
+        display: inline-block;
+        margin-top: 6px;
+        padding: 4px 8px;
+        background: #4285F4;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 12px;
+      }
+      .info-text a:hover {
+        background: #3367D6;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      function initMap() {
+        const centro = { lat: -31.97936, lng: -64.56012 };
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 14,
+          center: centro,
+        });
+
+        const marcadores = [
+          {
+            nombre: "FacuFut7",
+            posicion: { lat: -31.96986826832081, lng: -64.54982481431692 },
+            icono: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
+            logo: "img/logo facu.jpg",
+            resena: "Canchas de pasto sintetico al aire libre, ideal para una tarde con amigos. "
+          },
+        ];
+
+        marcadores.forEach((m) => {
+          const marker = new google.maps.Marker({
+            position: m.posicion,
+            map,
+            title: m.nombre,
+            icon: m.icono,
+          });
+
+          const infoContent = `
+            <div class="info-content">
+              <img src="${m.logo}" alt="Logo ${m.nombre}">
+              <div class="info-text">
+                <h3>${m.nombre}</h3>
+                <p>${m.resena}</p>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=${m.posicion.lat},${m.posicion.lng}" target="_blank">
+                  Cómo llegar
+                </a>
+              </div>
+            </div>
+          `;
+
+          const info = new google.maps.InfoWindow({ content: infoContent });
+          marker.addListener("click", () => { info.open(map, marker); });
+        });
+      }
+    </script>
+
+  
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmarkUOlPq_QbG9cuO1d2CfReNwza75Wo&callback=initMap"></script>
+  </body>
+</html>
