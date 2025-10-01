@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-bottom: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Registro</h2>
+    <form id="miFormulario" action="guardar.php" method="POST">
+      <label>Nombre:</label>
+      <input type="text" name="nombre" required>
+
+      <label>Contraseña:</label>
+      <input type="number and letter" name="contraseña" min="1" required>
+
+      <p id="errorMsg" class="error">Por favor completa todos los campos correctamente.</p>
+      
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("miFormulario").addEventListener("submit", function(event) {
+      event.preventDefault(); 
+
+      const nombre = this.nombre.value.trim();
+      const email = this.email.value.trim();
+      const edad = this.contraseña.value.trim();
+      const errorMsg = document.getElementById("errorMsg");
+
+      if (nombre && email && edad) {
+        errorMsg.style.display = "none"; 
+
+      
+        this.submit();
+
+       
+        window.location.href = "pagina.html";
+      } else {
+        errorMsg.style.display = "block"; 
+      }
+    });
+  </script>
+</body>
+</html>
